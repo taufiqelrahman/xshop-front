@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all');
+// @import url('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css');
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css');
+@import url('https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import 'font-icons';
+// @import '../assets/global/plugins/simple-line-icons/simple-line-icons.min';
+// @import '../assets/global/plugins/bootstrap/css/bootstrap.min';
+// @import '../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min';
+// @import '../assets/layouts/layout/css/layout.min';
+// @import '../assets/layouts/layout/css/themes/darkblue.min';
+
+// @import 'shop.css';
+// @import 'style.css';
+// @import 'elegant-icon.css';
+@import url('https://fonts.googleapis.com/css?family=Montserrat%3A400%2C700&#038;');
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+// @import 'swatches-and-photos.css';
+// @import 'settings.css';
+
+// @import url('https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css');
+// @import '../assets/global/css/components';
+@import 'loader';
+
+$desktop-size: 768px;
+@mixin respondToDesktop() {
+    @media only screen and (min-width: 768px) {
+        @content;
+    }
+} 
+
+body {
+    overflow: auto !important;
+    // background: white;
+    @include respondToDesktop() { 
+		// background: black !important;
+	}
+}
+
+/* form */
+.form-actions button {
+    margin-left: 2px;
+}
+.form-group.form-md-line-input {
+    margin: 0 0 10px;
+}
+
+/* swal */
+.swal2-icon.swal2-warning,
+.swal2-icon.swal2-error {
+    border-radius: 50% !important;
+}
+
+/* temp header */
+@media (min-width: 900px) {
+	.header-type-classic .navbar-default:not(.navbar-fixed-top) {
+	    background: rgb(183, 62, 62) !important;
+	}
+}
+
+/* navigation */
+.user-login a {
+    cursor: pointer;
+}
+.user-login a:hover {
+    background: none !important;
+}
