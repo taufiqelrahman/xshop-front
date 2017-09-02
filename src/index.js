@@ -14,22 +14,22 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import './styles/index.scss';
 
-import 'framework7-react/dist/umd/css/framework7.ios.min.css';
-import 'framework7-react/dist/umd/css/framework7.ios.colors.min.css';
+// import 'framework7-react/dist/umd/css/framework7.ios.min.css';
+// import 'framework7-react/dist/umd/css/framework7.ios.colors.min.css';
 
 // import routes from './routes';
 
 import App from './containers/App';
-import Main from './containers/Main';
-import MaterialUi from './containers/MainMaterialUi';
-import Framework7 from './containers/MainFramework7';
+// import Main from './containers/Main';
+// import MaterialUi from './containers/MainMaterialUi';
+// import Framework7 from './containers/MainFramework7';
 import userStore from './store/userStore';
 import uiStore from './store/uiStore';
 import shopStore from './store/shopStore';
-import cartStore from './store/cartStore';
+import orderStore from './store/orderStore';
 
 useStrict(true);
-const stores = { userStore, uiStore, shopStore, cartStore };
+const stores = { userStore, uiStore, shopStore, orderStore };
 
 const palette = {
 	primary1Color: red800,

@@ -27,7 +27,8 @@ const Config = {
 
   PRODUCTS: API + '/products',
   CART: API + '/cart',
-  CART_POSTLOGIN: API + '/cart/postLogin' 
+  CART_POSTLOGIN: API + '/cart/postLogin',
+  CART_UPDATE: API + '/cart/update'
 }
 
 export default Config;

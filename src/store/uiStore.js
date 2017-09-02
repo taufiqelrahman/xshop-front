@@ -54,7 +54,7 @@ class UiStore {
 			else if (change.oldValue == '' && change.newValue != '') {
 				localStorage.setItem('Token', JSON.stringify(change.newValue));
 				this.loggedIn = true;
-				this.toggleModal();
+				this.toggleModal(false);
 				fetchMe();				
 				getCartItems();
 			}
@@ -78,8 +78,8 @@ class UiStore {
 		this.loggedIn = bool;
 	}
 
-	@action toggleModal = () => {
-		this.modalActive = !this.modalActive; 
+	@action toggleModal = (bool) => {
+		this.modalActive = bool;
 	}
 
 	@action toggleDrawer = () => {

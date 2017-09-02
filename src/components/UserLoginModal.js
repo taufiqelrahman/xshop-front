@@ -34,7 +34,7 @@ export default class UserLoginModal extends React.Component{
 	      <FlatButton
 	        label="Cancel"
 	        secondary={true}
-	        onTouchTap={toggleModal}
+	        onTouchTap={toggleModal.bind(this,false)}
 	      />,
 	      <FlatButton
 	        label="Submit"

@@ -1,23 +1,19 @@
 import React from 'react';
 import axios from 'axios';
-import { Switch, Route, Link, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom';
 import { observer, inject  } from 'mobx-react';
 import sweetAlert from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 import DevTools from 'mobx-react-devtools';
-
+import { Grid, Row, Col } from 'react-bootstrap';
 import { AppBar, FlatButton, Toolbar, IconButton, Drawer, MenuItem, Dialog } from 'material-ui';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
 
-import { Grid, Row, Col } from 'react-bootstrap';
-
-import Home from './Home';
-import Shop from './Shop';
-import Cart from './Cart';
-import NotFoundPage from './NotFoundPage';
 import Header from './../components/Header';
 import UserLoginModal from './../components/UserLoginModal';
 import Navbar from './../components/Navbar';
+
+import { renderRoutes } from './../Routes';
 import { initLogin, fetchMe, logout } from './../actions/auth';
 import { getProducts } from './../actions/products';
 import { getCartItems } from './../actions/cart';
@@ -25,12 +21,6 @@ import Config from './../libraries/Config';
 
 @inject('userStore', 'uiStore') @observer
 class App extends React.Component{
-	// constructor(props) {
-	// 	super(props);
-	// }
-	// componentWillMount() {
-	// 	this.props.store.UiState.checkLoggedIn();
-	// }
 	componentDidMount() {
 		const { token } = this.props.uiStore;
 		this.setPageTitle(this.props.location.pathname);
@@ -68,14 +58,6 @@ class App extends React.Component{
 	handleLogin() {
 		console.log('login clicked');
 	}
-	renderRoutes() {
-    return <Switch>
-		        <Route exact path="/" component={Home}/>
-		        <Route exact path="/cart" component={Cart}/>
-		        <Route exact path="/shop" component={Shop}/>
-		        <Route path="/*" component={NotFoundPage}/>
-	        </Switch>;
-  }
 	render() {
 		const { modalActive, toggleModal, toggleDrawer, drawerActive, loggedIn } = this.props.uiStore;
 		const { me } = this.props.userStore;
@@ -100,7 +82,6 @@ class App extends React.Component{
 	    ];
 		return (
 			<div>
-				{/* <Navbar /> */}
 				<AppBar
 					title="Dingo Shop"
 					titleStyle={{ cursor: 'pointer' }}
@@ -110,9 +91,10 @@ class App extends React.Component{
                             </IconButton> }>
           <Link to="/cart"><FlatButton label="Cart" style={buttonStyle}/></Link>
           <Link to="/shop"><FlatButton label="Shop" style={buttonStyle}/></Link>
+					{ loggedIn && <Link to="/checkout"><FlatButton label="Checkout" style={buttonStyle}/></Link> }
           { loggedIn ?
           	<FlatButton label="Logout" style={buttonStyle} onClick={logout}/>
-          	: <FlatButton label="Login" style={buttonStyle} onClick={toggleModal}/>
+          	: <FlatButton label="Login" style={buttonStyle} onClick={toggleModal.bind(this,true)}/>
           }
 				</AppBar>
 				<Drawer
@@ -126,7 +108,7 @@ class App extends React.Component{
         </Drawer>
         <UserLoginModal uiStore={this.props.uiStore}/>
 				<Grid fluid>
-	        { this.renderRoutes() }
+	        { renderRoutes() }
         </Grid>
 			</div>
 		)

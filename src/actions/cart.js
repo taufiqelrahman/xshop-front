@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { BrowserRouter } from 'react-router-dom';
 import sweetAlert from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.css';
 
@@ -5,9 +7,7 @@ import Config from './../libraries/Config';
 import { getHeaderWithToken, hasLocalStorage } from './../libraries/Globals';
 
 import shopStore from '../store/shopStore';
-import cartStore from '../store/cartStore';
-
-import axios from 'axios';
+import orderStore from '../store/orderStore';
 
 export function addToCart(data) {
   data.amount = 1;
@@ -24,9 +24,9 @@ export function addToCart(data) {
   }
   else {
     data.product = shopStore.products.filter(x=>x.id==data.product_id)[0];
-    cartStore.addItem(data);
+    orderStore.addItem(data);
     sweetAlert("Success", 'This item has been successfully added to cart', "success");
-    localStorage.setItem('Cart', JSON.stringify(cartStore.items));
+    localStorage.setItem('Cart', JSON.stringify(orderStore.items));
     return;
   }
 }
@@ -35,7 +35,7 @@ export function getCartItems() {
   if (hasLocalStorage('Token')) {
     axios.get(Config.CART, getHeaderWithToken())
       .then(res => {
-        cartStore.setItems(res.data.items);
+        orderStore.setItems(res.data.items);
         // console.log(res);
       })
       .catch(function (error) {
@@ -45,10 +45,10 @@ export function getCartItems() {
   else {
     if (hasLocalStorage('Cart')) {
       let items = JSON.parse(localStorage.getItem('Cart'));
-      cartStore.setItems(items);
+      orderStore.setItems(items);
       return;
     }
-    cartStore.setItems([]);
+    orderStore.setItems([]);
     return;
   }
 }
@@ -66,22 +66,37 @@ export function removeCartItem(id) {
       })
   }
   else {
-    cartStore.removeItem(id);
+    orderStore.removeItem(id);
     sweetAlert("Success", 'This item has been successfully removed from cart', "success");
-    localStorage.setItem('Cart', JSON.stringify(cartStore.items));
+    localStorage.setItem('Cart', JSON.stringify(orderStore.items));
     return;
   }
 }
 
 export function moveItemsToCart() {
   let data = new Object();
-  data.items = JSON.stringify(cartStore.items);
+  data.items = JSON.stringify(orderStore.items);
   axios.post(Config.CART_POSTLOGIN, data, getHeaderWithToken())
     .then(res => {
       // sweetAlert("Success", 'This item has been successfully removed from cart', "success");
       // getCartItems();
       // console.log(res.data.message);      		
       localStorage.removeItem('Cart');
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+}
+
+export function updateCartItems(context) {
+  let data = new Object();
+  data.items = JSON.stringify(orderStore.items);
+  axios.post(Config.CART_UPDATE, data, getHeaderWithToken())
+    .then(res => {
+      // sweetAlert("Success", 'This item has been successfully removed from cart', "success");
+      console.log(res.data.message); 
+      context.props.history.push('/checkout');
+      getCartItems();
     })
     .catch(function (error) {
       console.log(error);

@@ -7,7 +7,9 @@ class UserStore {
     this.me = {
     	id: '',
     	name: '',
-    	email: ''
+    	email: '',
+      address: '',
+      phone: ''
     }
   }
 
@@ -19,7 +21,9 @@ class UserStore {
     this.me = {
     	id: '',
     	name: '',
-    	email: ''
+    	email: '',
+      address: '',
+      phone: ''
     }
   }
 
