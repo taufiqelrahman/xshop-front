@@ -7,6 +7,7 @@ import Home from './containers/pages/Home';
 import Shop from './containers/pages/Shop';
 import Cart from './containers/pages/Cart';
 import Checkout from './containers/pages/Checkout';
+import Payment from './containers/pages/Payment';
 import Login	 from './containers/pages/Login';
 import NotFoundPage from './containers/pages/NotFoundPage';
 
@@ -16,6 +17,7 @@ export function renderRoutes() {
       <Route exact path="/" component={Home}/>
       <Route exact path="/cart" component={Cart}/>
       <Route exact path="/shop" component={Shop}/>
+      <PrivateRoute exact path="/payment" component={Payment}/>
       <PrivateRoute exact path="/checkout" component={Checkout}/>
       <PublicRoute exact path="/login" component={Login}/>
       <Route path="/*" component={NotFoundPage}/>						

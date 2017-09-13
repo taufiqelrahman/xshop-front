@@ -28,7 +28,8 @@ const Config = {
   PRODUCTS: API + '/products',
   CART: API + '/cart',
   CART_POSTLOGIN: API + '/cart/postLogin',
-  CART_UPDATE: API + '/cart/update'
+  CART_UPDATE: API + '/cart/update',
+  ORDER_ADD: API + '/order'
 }
 
 export default Config;

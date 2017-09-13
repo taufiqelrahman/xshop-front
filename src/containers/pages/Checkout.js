@@ -4,7 +4,7 @@ import { observer, inject  } from 'mobx-react';
 import { RaisedButton, Checkbox, TextField, SelectField, MenuItem } from 'material-ui';
 
 import Config from './../../libraries/Config';
-import { addToCart } from './../../actions/cart';
+import { addOrder } from './../../actions/order';
 
 @inject('orderStore','userStore') @observer
 export default class Shop extends React.Component{
@@ -19,6 +19,9 @@ export default class Shop extends React.Component{
   handleInput(property, event, value) {
     const { setCheckoutForm } = this.props.orderStore;
     setCheckoutForm(property, value);
+  }
+  handleConfirm = () => {
+    addOrder(this);
   }
   renderItems() {
 		const { items } = this.props.orderStore;
@@ -72,7 +75,7 @@ export default class Shop extends React.Component{
             <MenuItem value="SiCepat" primaryText="SiCepat" />
           </SelectField>
         </div>
-				<RaisedButton label="Confirm" onClick={()=>console.log('confirmed')}/>
+				<RaisedButton label="Confirm" onClick={this.handleConfirm}/>
       </div>
     )
   }

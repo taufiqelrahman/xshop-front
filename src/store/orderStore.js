@@ -1,4 +1,4 @@
-import { observable, action, observe } from 'mobx';
+import { observable, action, observe, computed } from 'mobx';
 import userStore from '../store/userStore';
 
 class CartStore {
@@ -43,6 +43,12 @@ class CartStore {
 
   @action setAmount = (id,value) => {
     this.items.filter(item=>item.product_id==id)[0].amount = value;
+  }
+
+  @computed get totalPrice() {
+    let total = 0;
+    this.items.map(item=>total = item.amount * (parseInt(item.product.price)));
+    return total;
   }
 }
 
