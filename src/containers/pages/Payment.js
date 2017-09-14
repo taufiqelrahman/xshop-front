@@ -7,11 +7,12 @@ export default class Payment extends React.Component{
 	render() {
 		// const { loggedIn } = this.props.uiStore;
 		// const { me } = this.props.userStore;
+		const { totalPayment } = this.props.orderStore;
 		return (
 			<div>
         <h4>Payment</h4>
         <p>Please transfer to 02300758</p>
-        <p>Rp 422000</p>
+        <p>Rp {totalPayment}</p>
 			</div>
 		)
 	}

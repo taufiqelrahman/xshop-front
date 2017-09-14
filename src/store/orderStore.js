@@ -4,9 +4,11 @@ import userStore from '../store/userStore';
 class CartStore {
   @observable items;
   @observable checkoutForm;
+  @observable totalPayment;
 
   constructor() {
     this.items = [];
+    this.totalPayment = 0;
     this.checkoutForm = {
       sameAsUser: false,
       name: '',
@@ -22,6 +24,10 @@ class CartStore {
         this.checkoutForm.phone = userStore.me.phone;
       }
     })
+  }
+
+  @action setTotalPayment = (value) => {
+    this.totalPayment = value;
   }
 
   @action setCheckoutForm = (property, value) => {

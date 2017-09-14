@@ -17,6 +17,7 @@ import { renderRoutes } from './../Routes';
 import { initLogin, fetchMe, logout } from './../actions/auth';
 import { getProducts } from './../actions/products';
 import { getCartItems } from './../actions/cart';
+import { getOrders } from './../actions/order';
 import Config from './../libraries/Config';
 
 @inject('userStore', 'uiStore') @observer
@@ -29,6 +30,7 @@ class App extends React.Component{
 		}
 		getProducts();
 		getCartItems();
+		getOrders();
 	}
 	componentDidUpdate(prevProps, prevState) {
 		const { location } = this.props;
@@ -92,6 +94,7 @@ class App extends React.Component{
           <Link to="/cart"><FlatButton label="Cart" style={buttonStyle}/></Link>
           <Link to="/shop"><FlatButton label="Shop" style={buttonStyle}/></Link>
 					{ loggedIn && <Link to="/checkout"><FlatButton label="Checkout" style={buttonStyle}/></Link> }
+					{ loggedIn && <Link to="/user"><FlatButton label="User" style={buttonStyle}/></Link> }
           { loggedIn ?
           	<FlatButton label="Logout" style={buttonStyle} onClick={logout}/>
           	: <FlatButton label="Login" style={buttonStyle} onClick={toggleModal.bind(this,true)}/>

@@ -20,6 +20,22 @@ export function addOrder(context) {
   axios.post(Config.ORDER_ADD, data, getHeaderWithToken())
     .then(res => {
       sweetAlert("Success", res.data.message, "success");
+      orderStore.setTotalPayment(res.data.total);
+      orderStore.setItems([]);
+      getOrder();
+      // console.log(res.data.message); 
+      // debugger
+      context.props.history.push('/payment');
+    })
+    .catch(function (error) {
+      console.log(error);
+    })
+}
+
+export function getOrders() {
+  axios.get(Config.ORDER_LIST, getHeaderWithToken())
+    .then(res => {
+      orderStore.setItems(res.data.items);
       // console.log(res.data.message); 
       // debugger
       context.props.history.push('/payment');

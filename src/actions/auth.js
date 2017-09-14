@@ -1,6 +1,7 @@
 import Config from './../libraries/Config';
 import { getHeaderWithToken, getHeader } from './../libraries/Globals';
 import { moveItemsToCart } from './../actions/cart';
+import { getOrders } from './../actions/order';
 
 import uiStore from '../store/uiStore';
 import userStore from '../store/userStore';
@@ -15,6 +16,7 @@ export function login() {
       // localStorage.setItem('Token', JSON.stringify(res.data.token));
       fetchMe();
       moveItemsToCart();
+      getOrders();
       // uiStore.setLoggedIn(true);
       // uiStore.toggleModal();
       // userStore.setMe(postData.email);

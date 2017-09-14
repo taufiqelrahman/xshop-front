@@ -9,6 +9,7 @@ import Cart from './containers/pages/Cart';
 import Checkout from './containers/pages/Checkout';
 import Payment from './containers/pages/Payment';
 import Login	 from './containers/pages/Login';
+import User from './containers/pages/User';
 import NotFoundPage from './containers/pages/NotFoundPage';
 
 export function renderRoutes() {
@@ -19,6 +20,7 @@ export function renderRoutes() {
       <Route exact path="/shop" component={Shop}/>
       <PrivateRoute exact path="/payment" component={Payment}/>
       <PrivateRoute exact path="/checkout" component={Checkout}/>
+      <PrivateRoute exact path="/user" component={User}/>
       <PublicRoute exact path="/login" component={Login}/>
       <Route path="/*" component={NotFoundPage}/>						
     </Switch>

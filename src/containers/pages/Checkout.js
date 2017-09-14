@@ -41,42 +41,49 @@ export default class Shop extends React.Component{
   render() {
     const { items, checkoutForm, setCheckoutForm } = this.props.orderStore;
     const { me } = this.props.userStore;
-    return (
-      <div>
-        <h4>Let's checkout</h4>
-				<ol>
-          { this.renderItems() }
-        </ol>
-        <div className="adress-div">
-          <h4>Your address</h4>
-          <Checkbox
-            label="Same as you?"
-            onCheck={this.handleCheck.bind(this,'sameAsUser')}
-          />
-          <TextField floatingLabelText="Name" value={checkoutForm.name} onChange={this.handleInput.bind(this,'name')}/>
-          <TextField floatingLabelText="Phone" type="number" value={checkoutForm.phone} onChange={this.handleInput.bind(this,'phone')}/>
-          <TextField floatingLabelText="Address" value={checkoutForm.address} onChange={this.handleInput.bind(this,'address')}/>
+    if (items.length == 0) {
+      return (
+        <h4>There are no items to be checked out</h4>
+      )
+    }
+    else {
+      return (
+        <div>
+          <h4>Let's checkout</h4>
+          <ol>
+            { this.renderItems() }
+          </ol>
+          <div className="adress-div">
+            <h4>Your address</h4>
+            <Checkbox
+              label="Same as you?"
+              onCheck={this.handleCheck.bind(this,'sameAsUser')}
+            />
+            <TextField floatingLabelText="Name" value={checkoutForm.name} onChange={this.handleInput.bind(this,'name')}/>
+            <TextField floatingLabelText="Phone" type="number" value={checkoutForm.phone} onChange={this.handleInput.bind(this,'phone')}/>
+            <TextField floatingLabelText="Address" value={checkoutForm.address} onChange={this.handleInput.bind(this,'address')}/>
+          </div>
+          <div className="payment">
+            <h4>Your payment</h4>   
+            <p>We only support BNI at the moment</p>
+          </div>
+          <div className="expedition">
+            <h4>Your expedition</h4>          
+            <SelectField
+              name="expedition"
+              floatingLabelText="Expedition"
+              value={checkoutForm.expedition}
+              onChange={this.handleSelect.bind(this,'expedition')}
+            >          
+              <MenuItem value="JNE" primaryText="JNE" />
+              <MenuItem value="J&T" primaryText="J&T" />
+              <MenuItem value="Pos Indonesia" primaryText="Pos Indonesia" />
+              <MenuItem value="SiCepat" primaryText="SiCepat" />
+            </SelectField>
+          </div>
+          <RaisedButton label="Confirm" onClick={this.handleConfirm}/>
         </div>
-        <div className="payment">
-          <h4>Your payment</h4>   
-          <p>We only support BNI at the moment</p>
-        </div>
-        <div className="expedition">
-          <h4>Your expedition</h4>          
-          <SelectField
-            name="expedition"
-            floatingLabelText="Expedition"
-            value={checkoutForm.expedition}
-            onChange={this.handleSelect.bind(this,'expedition')}
-          >          
-            <MenuItem value="JNE" primaryText="JNE" />
-            <MenuItem value="J&T" primaryText="J&T" />
-            <MenuItem value="Pos Indonesia" primaryText="Pos Indonesia" />
-            <MenuItem value="SiCepat" primaryText="SiCepat" />
-          </SelectField>
-        </div>
-				<RaisedButton label="Confirm" onClick={this.handleConfirm}/>
-      </div>
-    )
+      )
+    }    
   }
 }
